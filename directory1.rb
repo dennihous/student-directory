@@ -17,30 +17,25 @@ def input_students
   students
 end
 
-def print_first_letter
-  puts "Which students would you like to see?"
-  letter = gets.chomp.downcase
-end
-
 def print_header
   puts "The students of Villains Academy"
   puts "----------"
 end
 
-def print(names, letter)
-  names.each_with_index do |name, index|
-    if name[:name].start_with?(letter.downcase)
-      puts "#{index + 1}. #{name[:name]} (#{name[:cohort]} cohort)"
+def print(names)
+  names.each do |name|
+    if name[:name].length < 12
+      puts "#{name[:name]} (#{name[:cohort]} cohort)"
     end
   end
 end
 
-def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+def print_footer(num_students)
+  puts "Overall, we have #{num_students.count} great students"
 end
 
 students = input_students
-letter = print_first_letter
 print_header
-print(students, letter)
+print(students)
+num_students = print(students)
 print_footer(students)
