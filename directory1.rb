@@ -64,4 +64,4 @@ end
 students = input_students
 print_header
 print(students)
-print_footer(names)
+print_footer(students)
