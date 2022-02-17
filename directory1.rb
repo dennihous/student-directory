@@ -25,7 +25,11 @@ def input_students
   until name == "Unknown" && cohort == "Unknown" do
     #add the student hash to the array
     students << {name: name, cohort: cohort.to_sym}
-    puts "Now we have #{students.count/2} students"
+    if (students.count) == 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
     # get another name from the user
     puts "Enter the name of the student"
     name = gets.chomp
@@ -59,14 +63,18 @@ def print_header
   puts "----------"
 end
 
-def print(names)
-  names.each do |name|
-    puts "#{name[:name]} (#{name[:cohort].capitalize} cohort)"
+def print(students)
+  students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort].capitalize} cohort)"
   end
 end
 
-def print_footer(names)
-  puts "Overall, we have #{names.count/2} great students"
+def print_footer(students)
+  if (students.count) == 1
+    puts "Overall, we have #{students.count} great student"
+  else
+    puts "Overall, we have #{students.count} great students"
+  end
 end
 
 students = input_students
