@@ -2,7 +2,7 @@ def input_students
   puts "Enter the name of the student"
   puts "To finish, enter empty results for cohort and name"
   # create an empty array
-  students = []
+  @students = []
   # get the first name
   name = gets.chomp
   name = "Unknown" if name.empty?
@@ -24,11 +24,11 @@ def input_students
   
   until name == "Unknown" && cohort == "Unknown" do
     #add the student hash to the array
-    students << {name: name, cohort: cohort.to_sym}
-    if (students.count) == 1
-      puts "Now we have #{students.count} student"
+   @students << {name: name, cohort: cohort.to_sym}
+    if (@students.count) == 1
+      puts "Now we have #{@students.count} student"
     else
-      puts "Now we have #{students.count} students"
+      puts "Now we have #{@students.count} students"
     end
     # get another name from the user
     puts "Enter the name of the student"
@@ -46,16 +46,6 @@ def input_students
       end
     end
   end
-  students
-end
-
-def which_cohort(students)
-  cohort = students.map { |student| student[:cohort] }.uniq
-  cohort.each do |cohort|
-    puts cohort.capitalize
-    current_cohort = students.select { |student| student[:cohort] == cohort}
-    current_cohort.each { |student| puts "#{student[:name]}"}
-  end
 end
 
 def print_header
@@ -63,22 +53,51 @@ def print_header
   puts "----------"
 end
 
-def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort].capitalize} cohort)"
+def print_students
+  @students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
-def print_footer(students)
-  if (students.count) == 1
-    puts "Overall, we have #{students.count} great student"
+def print_footer
+  if (@students.count) == 1
+    puts "Overall, we have #{@students.count} great student"
   else
-    puts "Overall, we have #{students.count} great students"
+    puts "Overall, we have #{@students.count} great students"
   end
 end
 
-students = input_students
-which_cohort(students)
-print_header
-print(students)
-print_footer(students)
+def show_students
+  print_header
+  print_students
+  print_footer
+end
+
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "9"
+    exit
+  else
+    puts "I don't know what you mean, try again"
+  end
+end
+
+def print_menu
+  # print the menu and ask the user what to do
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+interactive_menu
