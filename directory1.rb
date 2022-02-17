@@ -42,8 +42,16 @@ def input_students
       end
     end
   end
-  # return the array of students
   students
+end
+
+def which_cohort(students)
+  cohort = students.map { |student| student[:cohort] }.uniq
+  cohort.each do |cohort|
+    puts cohort.capitalize
+    current_cohort = students.select { |student| student[:cohort] == cohort}
+    current_cohort.each { |student| puts "#{student[:name]}"}
+  end
 end
 
 def print_header
@@ -62,6 +70,7 @@ def print_footer(names)
 end
 
 students = input_students
+which_cohort(students)
 print_header
 print(students)
 print_footer(students)
